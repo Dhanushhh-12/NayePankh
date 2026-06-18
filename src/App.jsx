@@ -8,7 +8,6 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Import Modular Components
 import Hero from './components/Hero';
 import DonationTray from './components/DonationTray';
 import DonationTracker from './components/DonationTracker';
@@ -20,32 +19,26 @@ import Events from './components/Events';
 import AISupport from './components/AISupport';
 
 export default function App() {
-  // Theme & General Layout States
   const [darkMode, setDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Naye Shiksha LMS Mode Toggle
   const [nayeShikshaActive, setNayeShikshaActive] = useState(false);
 
-  // Modals States
   const [isDonateOpen, setIsDonateOpen] = useState(false);
   const [isCertificatesOpen, setIsCertificatesOpen] = useState(false);
   const [isNewspaperOpen, setIsNewspaperOpen] = useState(false);
   const [selectedLesson, setSelectedLesson] = useState(null);
 
-  // Donation Submission State
   const [donateSubmitted, setDonateSubmitted] = useState(false);
   const [donateForm, setDonateForm] = useState({
     amount: '1000', customAmount: '', name: '', email: '', pan: '', cause: 'General Funds', method: 'UPI'
   });
 
-  // Naye Shiksha Student state
   const [shikshaSearchQuery, setShikshaSearchQuery] = useState('');
   const [activeLessonCategory, setActiveLessonCategory] = useState('All');
   const [shikshaRole, setShikshaRole] = useState('student');
 
-  // Naye Shiksha Volunteer Teacher state
   const [newLessonForm, setNewLessonForm] = useState({
     title: '', duration: '', category: 'Math', targetClass: 'Class 1-5', videoURL: ''
   });
@@ -91,7 +84,6 @@ export default function App() {
     { id: 3, topic: "Grade 9 Science - Newton's Laws", date: "Sunday, 11:00 AM", students: 78 }
   ]);
 
-  // Scroll Animations Observer
   const aboutRef = useRef(null);
   const [aboutVisible, setAboutVisible] = useState(false);
 
@@ -115,7 +107,6 @@ export default function App() {
     };
   }, [nayeShikshaActive]);
 
-  // Sync dark mode class
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -124,7 +115,17 @@ export default function App() {
     }
   }, [darkMode]);
 
-  // Smooth scroll handler
+  useEffect(() => {
+    fetch('http://localhost:5001/api/lessons')
+      .then(res => res.json())
+      .then(data => {
+        if (data && Array.isArray(data) && data.length > 0) {
+          setLessonsList(data);
+        }
+      })
+      .catch(err => console.log("Running in local offline mode (lessons API unavailable)."));
+  }, []);
+
   const scrollToSection = (e, id) => {
     e.preventDefault();
     setNayeShikshaActive(false);
@@ -152,15 +153,40 @@ export default function App() {
 
   const handleDonateSubmit = (e) => {
     e.preventDefault();
+    const finalAmount = donateForm.amount === 'custom' ? donateForm.customAmount : donateForm.amount;
+    const bodyData = {
+      name: donateForm.name,
+      email: donateForm.email,
+      pan: donateForm.pan,
+      amount: finalAmount,
+      cause: donateForm.cause,
+      method: donateForm.method
+    };
+
     setDonateSubmitted(true);
-    setTimeout(() => {
-      setDonateSubmitted(false);
-      setIsDonateOpen(false);
-      setDonateForm({ amount: '1000', customAmount: '', name: '', email: '', pan: '', cause: 'General Funds', method: 'UPI' });
-    }, 4000);
+    fetch('http://localhost:5001/api/donations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bodyData)
+    })
+      .then(res => res.json())
+      .then(data => {
+        setTimeout(() => {
+          setDonateSubmitted(false);
+          setIsDonateOpen(false);
+          setDonateForm({ amount: '1000', customAmount: '', name: '', email: '', pan: '', cause: 'General Funds', method: 'UPI' });
+        }, 4000);
+      })
+      .catch(err => {
+        console.error("Error submitting donation:", err);
+        setTimeout(() => {
+          setDonateSubmitted(false);
+          setIsDonateOpen(false);
+          setDonateForm({ amount: '1000', customAmount: '', name: '', email: '', pan: '', cause: 'General Funds', method: 'UPI' });
+        }, 4000);
+      });
   };
 
-  // Triggers checkout from sticky donation tray or counter cards
   const triggerDonationFlow = (amount) => {
     setDonateForm({
       ...donateForm,
@@ -172,13 +198,27 @@ export default function App() {
 
   const handleAddLessonSubmit = (e) => {
     e.preventDefault();
-    const newLesson = {
-      id: lessonsList.length + 1,
-      ...newLessonForm
-    };
-    setLessonsList([newLesson, ...lessonsList]);
-    setNewLessonForm({ title: '', duration: '', category: 'Math', targetClass: 'Class 1-5', videoURL: '' });
-    alert("Lesson uploaded successfully to the platform database!");
+    fetch('http://localhost:5001/api/lessons', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newLessonForm)
+    })
+      .then(res => res.json())
+      .then(newLesson => {
+        setLessonsList([newLesson, ...lessonsList]);
+        setNewLessonForm({ title: '', duration: '', category: 'Math', targetClass: 'Class 1-5', videoURL: '' });
+        alert("Lesson uploaded successfully to the platform database!");
+      })
+      .catch(err => {
+        console.error("Error saving lesson:", err);
+        const newLesson = {
+          id: lessonsList.length + 1,
+          ...newLessonForm
+        };
+        setLessonsList([newLesson, ...lessonsList]);
+        setNewLessonForm({ title: '', duration: '', category: 'Math', targetClass: 'Class 1-5', videoURL: '' });
+        alert("Lesson uploaded successfully to the platform database!");
+      });
   };
 
   const filteredLessons = lessonsList.filter(lesson => {
@@ -191,13 +231,11 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#f7fafc] text-slate-800 dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300 antialiased selection:bg-[#dd6b20] selection:text-white">
 
-      {/* ==========================================
-          NAVBAR SECTION
-          ========================================== */}
+      
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'shadow-md py-3 bg-[#1a365d]/95 backdrop-blur-md border-b border-blue-900/50 text-white' : 'bg-transparent py-5 text-white md:text-slate-800 dark:text-white'}`}>
         <div className="w-full px-4 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between">
-            {/* Logo */}
+            
             <a href="#home" onClick={(e) => scrollToSection(e, 'home')} className="flex items-center space-x-2 text-2xl font-bold tracking-tight group">
               <div className="bg-[#dd6b20] text-white p-2 rounded-xl group-hover:scale-105 transition-transform duration-300 flex items-center justify-center">
                 <Heart className="w-5 h-5 fill-current text-white animate-pulse" />
@@ -205,7 +243,7 @@ export default function App() {
               <span className={`font-extrabold tracking-tight ${isScrolled ? 'text-white' : 'text-[#1a365d] dark:text-white'}`}>Nayepankh</span>
             </a>
 
-            {/* Desktop Navigation Links */}
+            
             <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
               <a href="#home" onClick={(e) => scrollToSection(e, 'home')} className={`font-semibold transition-colors duration-200 ${isScrolled ? 'text-blue-100 hover:text-[#dd6b20]' : 'text-slate-700 hover:text-[#dd6b20] dark:text-slate-300 dark:hover:text-[#dd6b20]'}`}>Home</a>
               <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className={`font-semibold transition-colors duration-200 ${isScrolled ? 'text-blue-100 hover:text-[#dd6b20]' : 'text-slate-700 hover:text-[#dd6b20] dark:text-slate-300 dark:hover:text-[#dd6b20]'}`}>About Us</a>
@@ -231,7 +269,7 @@ export default function App() {
               </button>
             </div>
 
-            {/* Right Side Actions */}
+            
             <div className="hidden md:flex items-center space-x-4">
               <button
                 onClick={() => setDarkMode(!darkMode)}
@@ -249,7 +287,7 @@ export default function App() {
               </button>
             </div>
 
-            {/* Mobile Actions */}
+            
             <div className="flex items-center space-x-3 md:hidden">
               <button
                 onClick={() => setDarkMode(!darkMode)}
@@ -270,7 +308,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* Mobile Navigation Dropdown */}
+        
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -311,12 +349,10 @@ export default function App() {
         </AnimatePresence>
       </nav>
 
-      {/* ==========================================
-          LMS VIEW
-          ========================================== */}
+      
       {nayeShikshaActive ? (
         <main className="pt-24 min-h-screen">
-          {/* Header Banner */}
+          
           <div className="bg-gradient-to-r from-teal-700 via-emerald-600 to-indigo-700 text-white py-12 px-4 shadow-xl">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
               <div>
@@ -354,7 +390,7 @@ export default function App() {
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            {/* STUDENT PORTAL */}
+            
             {shikshaRole === 'student' ? (
               <div className="grid lg:grid-cols-3 gap-12">
                 <div className="lg:col-span-2 space-y-8">
@@ -429,7 +465,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Right Column Progress */}
+                
                 <div className="space-y-8">
                   <div className="bg-gradient-to-b from-indigo-900 to-indigo-955 text-white p-8 rounded-3xl shadow-lg border border-indigo-850">
                     <div className="flex items-center space-x-3 mb-6">
@@ -591,14 +627,14 @@ export default function App() {
         /* HOMEPAGE REDESIGN CONTENT */
         <>
 
-          {/* SECTION 1: HERO & IMPACT SHOWCASE */}
+          
           <Hero
             onDonateClick={() => setIsDonateOpen(true)}
             onVolunteerClick={(e) => scrollToSection(e, 'volunteer')}
             onImpactReportClick={(e) => scrollToSection(e, 'timeline')}
           />
 
-          {/* ABOUT SECTION (Timeline Origin and Founder quote) */}
+          
           <section id="about" ref={aboutRef} className="py-24 bg-[#f7fafc] dark:bg-slate-950 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -653,7 +689,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* History Details */}
+              
               <div className="grid md:grid-cols-2 gap-12 items-start pt-12 border-t border-slate-200 dark:border-slate-850">
                 <div className="space-y-4">
                   <h3 className="text-2xl font-black text-[#1a365d] dark:text-white">How it started?</h3>
@@ -670,7 +706,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Founder quote */}
+              
               <div className="mt-20 bg-gradient-to-r from-orange-500/5 to-blue-500/5 border border-slate-200 dark:border-slate-850 p-8 sm:p-12 rounded-[24px] text-center max-w-4xl mx-auto">
                 <span className="text-4xl text-[#dd6b20] block mb-4">“</span>
                 <p className="text-lg sm:text-xl font-bold text-[#1a365d] dark:text-slate-200 mb-6 italic leading-relaxed font-sans">
@@ -685,42 +721,40 @@ export default function App() {
             </div>
           </section>
 
-          {/* SECTION 6: IMPACTSPHERE DASHBOARD */}
+          
           <ImpactSphere />
 
-          {/* SECTION 3: DONATION PROGRESS TRACKER */}
+          
           <DonationTracker onDonateClick={triggerDonationFlow} />
 
-          {/* SECTION 4: SUCCESS STORIES */}
+          
           <SuccessStories />
 
-          {/* SECTION 9: TESTIMONIALS CAROUSEL */}
+          
           <Testimonials />
 
-          {/* SECTION 10: EVENTS & CAMPAIGNS */}
+          
           <Events />
 
-          {/* SECTION 5: VOLUNTEER REGISTRATION PORTAL */}
+          
           <VolunteerPortal />
 
-          {/* SECTION 2: FIXED STICKY DONATION TRAY */}
+          
           <DonationTray onDonateExecute={triggerDonationFlow} />
 
         </>
       )}
 
-      {/* SECTION 11: AI SUPPORT ASSISTANT */}
+      
       <AISupport />
 
-      {/* ==========================================
-          CONTACT / FOOTER SECTION
-          ========================================== */}
+      
       <footer id="contact" className="bg-[#1a365d] text-blue-250 py-16 border-t border-blue-900/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="grid md:grid-cols-4 gap-12 mb-16">
 
-            {/* Column 1: Brand */}
+            
             <div className="flex flex-col space-y-4">
               <a href="#home" onClick={(e) => scrollToSection(e, 'home')} className="flex items-center space-x-2 text-2xl font-bold tracking-tight text-white group">
                 <div className="bg-[#dd6b20] text-white p-1.5 rounded-lg">
@@ -740,7 +774,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Column 2: Navigation Links */}
+            
             <div>
               <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-xs">Quick Links</h4>
               <ul className="space-y-2.5 text-sm">
@@ -752,7 +786,7 @@ export default function App() {
               </ul>
             </div>
 
-            {/* Column 3: Legal Policies */}
+            
             <div>
               <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-xs">Policies</h4>
               <ul className="space-y-2.5 text-sm">
@@ -764,7 +798,7 @@ export default function App() {
               </ul>
             </div>
 
-            {/* Column 4: Contact Details */}
+            
             <div className="flex flex-col space-y-4">
               <h4 className="text-white font-bold uppercase tracking-wider text-xs">Contact Us</h4>
 
@@ -794,9 +828,7 @@ export default function App() {
         </div>
       </footer>
 
-      {/* ==========================================
-          DONATION TRANSACTION MODAL
-          ========================================== */}
+      
       {isDonateOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsDonateOpen(false)}></div>
@@ -916,9 +948,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ==========================================
-          CERTIFICATES MODAL (LIGHTBOX)
-          ========================================== */}
+      
       {isCertificatesOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setIsCertificatesOpen(false)}></div>
@@ -978,9 +1008,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ==========================================
-          NEWSPAPER RECOGNITION MODAL (LIGHTBOX)
-          ========================================== */}
+      
       {isNewspaperOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" onClick={() => setIsNewspaperOpen(false)}></div>
@@ -1003,7 +1031,7 @@ export default function App() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              {/* Clip 1 */}
+              
               <div className="bg-slate-50 dark:bg-slate-850 p-6 rounded-2xl border border-slate-250 dark:border-slate-800 flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center mb-3">
@@ -1017,7 +1045,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Clip 2 */}
+              
               <div className="bg-slate-50 dark:bg-slate-850 p-6 rounded-2xl border border-slate-255 dark:border-slate-800 flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center mb-3">
@@ -1031,7 +1059,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Clip 3 */}
+              
               <div className="bg-slate-50 dark:bg-slate-850 p-6 rounded-2xl border border-slate-250 dark:border-slate-805 flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center mb-3">
@@ -1045,7 +1073,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Clip 4 */}
+              
               <div className="bg-slate-50 dark:bg-slate-850 p-6 rounded-2xl border border-slate-250 dark:border-slate-800 flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center mb-3">
@@ -1070,9 +1098,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ==========================================
-          VIDEO LESSON PLAYER MODAL
-          ========================================== */}
+      
       {selectedLesson && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" onClick={() => setSelectedLesson(null)}></div>

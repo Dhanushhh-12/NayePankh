@@ -54,7 +54,7 @@ export default function SuccessStories() {
     <section id="stories" className="py-24 bg-white dark:bg-slate-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#dd6b20] font-extrabold text-sm uppercase tracking-widest mb-3 block">REAL IMPACT</span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#1a365d] dark:text-white mb-6 tracking-tight">Wings of Success Stories</h2>
@@ -63,13 +63,13 @@ export default function SuccessStories() {
           </p>
         </div>
 
-        {/* Carousel Container */}
+        
         <div className="relative max-w-4xl mx-auto">
           
           <div className="overflow-hidden bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 rounded-3xl p-6 sm:p-10 shadow-sm relative">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               
-              {/* Image Column */}
+              
               <div className="relative aspect-square md:aspect-auto md:h-80 bg-slate-200 dark:bg-slate-800 rounded-2xl overflow-hidden shadow-inner">
                 <img 
                   src={stories[currentIndex].image} 
@@ -79,7 +79,7 @@ export default function SuccessStories() {
                     e.target.style.display = 'none';
                   }}
                 />
-                {/* Visual Placeholder */}
+                
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-[#1a365d]/5">
                   <Sparkles className="w-10 h-10 text-[#dd6b20] mb-2 animate-bounce" />
                   <span className="text-xs font-black text-[#1a365d] dark:text-white uppercase tracking-wider">{stories[currentIndex].tag}</span>
@@ -92,7 +92,7 @@ export default function SuccessStories() {
                 </div>
               </div>
 
-              {/* Story Details Column */}
+              
               <div className="flex flex-col justify-between h-full">
                 <div>
                   <span className="text-[#dd6b20] font-bold text-xs uppercase tracking-wider block mb-2">{stories[currentIndex].beneficiary}</span>
@@ -120,7 +120,7 @@ export default function SuccessStories() {
             </div>
           </div>
 
-          {/* Navigation Controls */}
+          
           <div className="flex justify-center mt-6 space-x-4">
             <button 
               onClick={handlePrev}
@@ -154,7 +154,7 @@ export default function SuccessStories() {
 
       </div>
 
-      {/* Story Lightbox / Read More Modal */}
+      
       <AnimatePresence>
         {selectedStory && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

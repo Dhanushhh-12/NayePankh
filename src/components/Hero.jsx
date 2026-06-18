@@ -24,7 +24,6 @@ function Counter({ target, duration = 2 }) {
     return () => clearInterval(handle);
   }, [target, duration]);
 
-  // Format count-up with original units
   const formattedCount = count.toLocaleString();
   return <span>{formattedCount}{target.includes('+') ? '+' : ''}</span>;
 }
@@ -36,7 +35,7 @@ export default function Hero({ onDonateClick, onVolunteerClick, onImpactReportCl
       className="relative min-h-[90vh] lg:min-h-screen flex items-center justify-center pt-24 overflow-hidden bg-gradient-to-tr from-[#1a365d] via-slate-900 to-indigo-950 text-white"
       aria-label="Introduction Banner"
     >
-      {/* Background Overlay & Decorative Blobs */}
+      
       <div className="absolute inset-0 bg-black/30 mix-blend-multiply"></div>
       
       <motion.div 
@@ -54,7 +53,7 @@ export default function Hero({ onDonateClick, onVolunteerClick, onImpactReportCl
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center z-10 flex flex-col items-center">
         
-        {/* Verification Trust Badge */}
+        
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -65,7 +64,7 @@ export default function Hero({ onDonateClick, onVolunteerClick, onImpactReportCl
           <span className="text-xs font-bold tracking-wider uppercase">UP GOVT. | 80G & 12A REGISTERED NGO</span>
         </motion.div>
 
-        {/* Headline */}
+        
         <motion.h1 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -75,7 +74,7 @@ export default function Hero({ onDonateClick, onVolunteerClick, onImpactReportCl
           Giving Wings to Underprivileged Communities Through <span className="bg-gradient-to-r from-orange-400 to-[#dd6b20] bg-clip-text text-transparent">Food, Healthcare, and Youth Education</span>
         </motion.h1>
 
-        {/* Subheading */}
+        
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -85,7 +84,7 @@ export default function Hero({ onDonateClick, onVolunteerClick, onImpactReportCl
           Empowering communities through transparent impact-driven initiatives across India.
         </motion.p>
 
-        {/* Call to Actions */}
+        
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -117,7 +116,7 @@ export default function Hero({ onDonateClick, onVolunteerClick, onImpactReportCl
           </button>
         </motion.div>
 
-        {/* Dynamic Impact Counter Grid */}
+        
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -125,7 +124,7 @@ export default function Hero({ onDonateClick, onVolunteerClick, onImpactReportCl
           className="w-full grid md:grid-cols-3 gap-6 max-w-5xl"
         >
           
-          {/* Card 1 */}
+          
           <div className="bg-[#1a365d]/50 backdrop-blur border border-blue-900/60 p-6 rounded-2xl text-left hover:scale-[1.02] hover:bg-[#1a365d]/75 transition-all duration-300 shadow-lg group">
             <div className="text-3xl lg:text-4xl font-extrabold text-white flex items-center space-x-2">
               <Counter target="50000" />
@@ -135,7 +134,7 @@ export default function Hero({ onDonateClick, onVolunteerClick, onImpactReportCl
             <div className="text-xs text-blue-200 mt-2">Real-time drive log tracking enabled</div>
           </div>
 
-          {/* Card 2 */}
+          
           <div className="bg-[#1a365d]/50 backdrop-blur border border-blue-900/60 p-6 rounded-2xl text-left hover:scale-[1.02] hover:bg-[#1a365d]/75 transition-all duration-300 shadow-lg group">
             <div className="text-3xl lg:text-4xl font-extrabold text-white flex items-center space-x-2">
               <Counter target="10000" />
@@ -145,7 +144,7 @@ export default function Hero({ onDonateClick, onVolunteerClick, onImpactReportCl
             <div className="text-xs text-blue-200 mt-2">Mobilized across university chapters</div>
           </div>
 
-          {/* Card 3 */}
+          
           <div className="bg-[#1a365d]/50 backdrop-blur border border-blue-900/60 p-6 rounded-2xl text-left hover:scale-[1.02] hover:bg-[#1a365d]/75 transition-all duration-300 shadow-lg group">
             <div className="text-3xl lg:text-4xl font-extrabold text-white flex items-center space-x-2">
               <span>100%</span>
@@ -159,7 +158,7 @@ export default function Hero({ onDonateClick, onVolunteerClick, onImpactReportCl
 
       </div>
 
-      {/* Decorative Wave Divider */}
+      
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
         <svg className="relative block w-full h-[40px] md:h-[60px]" viewBox="0 0 1200 120" preserveAspectRatio="none">
           <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C26.9,8.75,57.05,18.3,88.46,26.41,180,50,263,67.23,321.39,56.44Z" className="fill-[#f7fafc] dark:fill-slate-955 transition-colors duration-300"></path>

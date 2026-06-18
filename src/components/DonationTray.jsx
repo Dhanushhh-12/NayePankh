@@ -18,7 +18,7 @@ export default function DonationTray({ onDonateExecute }) {
     <div className="fixed bottom-0 left-0 w-full z-45 pointer-events-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         
-        {/* Toggle Collapse Tab */}
+        
         <div className="flex justify-end pr-6 -mb-1 relative z-10 pointer-events-auto">
           <button 
             onClick={() => setIsCollapsed(!isCollapsed)}
@@ -30,7 +30,7 @@ export default function DonationTray({ onDonateExecute }) {
           </button>
         </div>
 
-        {/* Donation Tray Bar */}
+        
         <AnimatePresence>
           {!isCollapsed && (
             <motion.div
@@ -42,7 +42,7 @@ export default function DonationTray({ onDonateExecute }) {
             >
               <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row items-center justify-between gap-4">
                 
-                {/* Text and Labels */}
+                
                 <div className="flex items-center space-x-3 text-center lg:text-left">
                   <span className="p-2 bg-orange-100 dark:bg-orange-500/20 text-[#dd6b20] rounded-xl hidden sm:inline-block">
                     <Heart className="w-5 h-5 fill-current" />
@@ -57,7 +57,7 @@ export default function DonationTray({ onDonateExecute }) {
                   </div>
                 </div>
 
-                {/* Amount Chips Selection */}
+                
                 <div className="flex flex-wrap items-center justify-center gap-2">
                   {['200', '500', '1000'].map((amt) => (
                     <button
@@ -101,7 +101,7 @@ export default function DonationTray({ onDonateExecute }) {
                   )}
                 </div>
 
-                {/* Execute Button */}
+                
                 <button
                   type="submit"
                   className="w-full lg:w-auto px-7 py-2.5 bg-[#dd6b20] hover:bg-[#c05621] text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center space-x-2"

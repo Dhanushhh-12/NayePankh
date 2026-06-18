@@ -52,7 +52,19 @@ export default function VolunteerPortal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateStep(3)) {
-      setIsSubmitted(true);
+      fetch('http://localhost:5001/api/volunteers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+        .then(res => res.json())
+        .then(() => {
+          setIsSubmitted(true);
+        })
+        .catch(err => {
+          console.error("Error submitting volunteer form:", err);
+          setIsSubmitted(true);
+        });
     }
   };
 
@@ -60,7 +72,7 @@ export default function VolunteerPortal() {
     <section id="volunteer" className="py-24 bg-slate-50 dark:bg-slate-900/30 transition-colors duration-300">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#dd6b20] font-extrabold text-sm uppercase tracking-widest mb-3 block">GET INVOLVED</span>
           <h2 className="text-3xl sm:text-4xl font-black text-[#1a365d] dark:text-white mb-6 tracking-tight">Become a Volunteer Teacher or Coordinator</h2>
@@ -69,7 +81,7 @@ export default function VolunteerPortal() {
           </p>
         </div>
 
-        {/* Form Container */}
+        
         <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl p-8 sm:p-12 shadow-sm relative overflow-hidden">
           
           {isSubmitted ? (
@@ -95,7 +107,7 @@ export default function VolunteerPortal() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-8">
               
-              {/* Progress Steps Header */}
+              
               <div className="flex justify-between items-center mb-8 relative">
                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-slate-100 dark:bg-slate-800 -z-1"></div>
                 {[1, 2, 3].map((s) => (
@@ -112,7 +124,7 @@ export default function VolunteerPortal() {
                 ))}
               </div>
 
-              {/* Step 1: Personal Details */}
+              
               {step === 1 && (
                 <motion.div 
                   initial={{ opacity: 0, x: 20 }}
@@ -152,7 +164,7 @@ export default function VolunteerPortal() {
                 </motion.div>
               )}
 
-              {/* Step 2: College & Skills */}
+              
               {step === 2 && (
                 <motion.div 
                   initial={{ opacity: 0, x: 20 }}
@@ -190,7 +202,7 @@ export default function VolunteerPortal() {
                 </motion.div>
               )}
 
-              {/* Step 3: Preferred Cause & Final Review */}
+              
               {step === 3 && (
                 <motion.div 
                   initial={{ opacity: 0, x: 20 }}
@@ -224,7 +236,7 @@ export default function VolunteerPortal() {
                 </motion.div>
               )}
 
-              {/* Navigation Action Buttons */}
+              
               <div className="flex justify-between items-center pt-6 border-t border-slate-100 dark:border-slate-800">
                 {step > 1 ? (
                   <button 

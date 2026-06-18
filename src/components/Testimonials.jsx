@@ -33,7 +33,6 @@ export default function Testimonials() {
     }
   ];
 
-  // Auto-slide effect
   useEffect(() => {
     if (isHovered) return;
     const interval = setInterval(() => {
@@ -59,7 +58,7 @@ export default function Testimonials() {
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#dd6b20] font-extrabold text-sm uppercase tracking-widest mb-3 block">TESTIMONIALS</span>
           <h2 className="text-3xl sm:text-4xl font-black text-[#1a365d] dark:text-white mb-6 tracking-tight font-sans">Voices of Trust</h2>
@@ -68,12 +67,12 @@ export default function Testimonials() {
           </p>
         </div>
 
-        {/* Testimonials Slide Frame */}
+        
         <div className="relative max-w-3xl mx-auto">
           
           <div className="relative bg-white dark:bg-slate-950 border border-slate-200/60 dark:border-slate-805 rounded-3xl p-8 sm:p-12 shadow-sm">
             
-            {/* Quote Icon Background */}
+            
             <span className="absolute top-6 right-8 text-slate-100 dark:text-slate-900 pointer-events-none" aria-hidden="true">
               <Quote className="w-24 h-24 stroke-[1.5]" />
             </span>
@@ -87,7 +86,7 @@ export default function Testimonials() {
                 transition={{ duration: 0.3 }}
                 className="relative z-10 space-y-6"
               >
-                {/* Category Chip */}
+                
                 <span className="bg-[#dd6b20]/10 text-[#dd6b20] font-extrabold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full inline-block">
                   {testimonials[currentIndex].category}
                 </span>
@@ -96,7 +95,7 @@ export default function Testimonials() {
                   "{testimonials[currentIndex].quote}"
                 </blockquote>
 
-                {/* Author Info */}
+                
                 <div className="flex items-center space-x-3 pt-4 border-t border-slate-100 dark:border-slate-850">
                   <div className="w-10 h-10 bg-[#1a365d] text-white flex items-center justify-center font-black rounded-full text-xs">
                     {testimonials[currentIndex].avatar}
@@ -116,10 +115,10 @@ export default function Testimonials() {
 
           </div>
 
-          {/* Navigation controls */}
+          
           <div className="flex justify-between items-center mt-6 px-4">
             
-            {/* Pagination markers */}
+            
             <div className="flex space-x-1.5">
               {testimonials.map((_, idx) => (
                 <button

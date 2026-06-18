@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "targetClass": "Class 1-5",
+    "title": "Introduction to Fractions (Visual Math)",
+    "duration": "12 mins",
+    "videoURL": "https://www.youtube.com/embed/n0FZhQ_GkKw",
+    "category": "Math"
+  },
+  {
+    "id": 2,
+    "targetClass": "Class 6-8",
+    "title": "English Grammar: Tenses and Active Voice",
+    "duration": "18 mins",
+    "videoURL": "https://www.youtube.com/embed/tupT1nQe9cQ",
+    "category": "English"
+  },
+  {
+    "id": 3,
+    "targetClass": "Class 1-5",
+    "title": "Our Solar System & Planets Explained",
+    "duration": "15 mins",
+    "videoURL": "https://www.youtube.com/embed/libKVRa01L8",
+    "category": "Science"
+  },
+  {
+    "id": 4,
+    "targetClass": "Class 6-10",
+    "title": "Basics of Computer Logic & Coding with Scratch",
+    "duration": "22 mins",
+    "videoURL": "https://www.youtube.com/embed/2eHn3sV-TzY",
+    "category": "Technology"
+  }
+]

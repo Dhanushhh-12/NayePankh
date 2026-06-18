@@ -54,7 +54,7 @@ export default function ImpactSphere() {
     <section id="impactsphere" className="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#dd6b20] font-extrabold text-sm uppercase tracking-widest mb-3 block">CHAPTER NETWORK</span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#1a365d] dark:text-white mb-6 tracking-tight">ImpactSphere Chapter Dashboard</h2>
@@ -63,7 +63,7 @@ export default function ImpactSphere() {
           </p>
         </div>
 
-        {/* Chapters Grid */}
+        
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {chapters.map((chapter) => (
             <motion.div
@@ -79,7 +79,7 @@ export default function ImpactSphere() {
               className="relative bg-[#f7fafc] dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between h-full transition-all duration-300"
             >
               
-              {/* Image & Badges */}
+              
               <div className="relative aspect-video bg-slate-200 dark:bg-slate-850 flex items-center justify-center overflow-hidden">
                 {chapter.topChapter && (
                   <div className="absolute top-3 left-3 bg-[#dd6b20] text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center space-x-1 shadow-md z-10 animate-pulse">
@@ -93,18 +93,18 @@ export default function ImpactSphere() {
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
                 
-                {/* Fallback Graphic */}
+                
                 <div className="flex flex-col items-center justify-center p-4 text-center text-slate-400">
                   <Sparkles className="w-8 h-8 text-[#dd6b20] mb-1 opacity-40" />
                   <span className="text-[10px] uppercase font-bold">{chapter.campus}</span>
                 </div>
               </div>
 
-              {/* Stats Content */}
+              
               <div className="p-6 flex-1 flex flex-col justify-between">
                 <div className="space-y-4">
                   
-                  {/* Metric Rows */}
+                  
                   <div className="grid grid-cols-2 gap-4 border-b border-slate-200/50 dark:border-slate-805 pb-4">
                     <div>
                       <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Volunteers</span>
@@ -116,7 +116,7 @@ export default function ImpactSphere() {
                     </div>
                   </div>
 
-                  {/* Meals Distribution Goal Progress */}
+                  
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs font-bold">
                       <span className="text-slate-400">Meals Served</span>

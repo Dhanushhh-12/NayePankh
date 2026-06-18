@@ -58,7 +58,7 @@ export default function ImpactTimeline() {
     <section id="timeline" className="py-24 bg-white dark:bg-slate-950 transition-colors duration-300">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#dd6b20] font-extrabold text-sm uppercase tracking-widest mb-3 block">LIVE UPDATES</span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#1a365d] dark:text-white mb-6 tracking-tight">Real-Time Impact Timeline</h2>
@@ -67,7 +67,7 @@ export default function ImpactTimeline() {
           </p>
         </div>
 
-        {/* Timeline Flow */}
+        
         <div className="relative border-l-2 border-slate-200 dark:border-slate-800 ml-4 sm:ml-8 space-y-12">
           {events.map((ev, idx) => {
             const Icon = ev.icon;
@@ -80,15 +80,15 @@ export default function ImpactTimeline() {
                 transition={{ duration: 0.6, delay: idx * 0.15 }}
                 className="relative pl-8 sm:pl-12"
               >
-                {/* Node Dot Icon */}
+                
                 <span className={`absolute -left-5 top-1.5 flex h-10 w-10 items-center justify-center rounded-full text-white ${ev.color} border-4 border-white dark:border-slate-950 shadow-md`}>
                   <Icon className="w-4 h-4" />
                 </span>
 
-                {/* Timeline Card */}
+                
                 <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-805 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
                   
-                  {/* Card Header */}
+                  
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                     <div className="flex items-center space-x-2">
                       <h3 className="text-lg font-black text-[#1a365d] dark:text-white leading-tight">
@@ -110,16 +110,16 @@ export default function ImpactTimeline() {
                     {ev.desc}
                   </p>
 
-                  {/* Card Footer Details & Media Placeholder */}
+                  
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-4 border-t border-slate-200/50 dark:border-slate-800 gap-4">
                     
-                    {/* Location */}
+                    
                     <div className="flex items-center space-x-1.5 text-xs text-slate-400 font-medium">
                       <MapPin className="w-4 h-4 text-[#dd6b20]" />
                       <span>{ev.location}</span>
                     </div>
 
-                    {/* Media Preview Box */}
+                    
                     <div className="bg-white dark:bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-200/60 dark:border-slate-805 text-[10px] text-slate-400 flex items-center space-x-2 self-start sm:self-auto shadow-inner">
                       <span className="w-2 h-2 rounded-full bg-green-500"></span>
                       <span>📷 {ev.photoDesc}</span>

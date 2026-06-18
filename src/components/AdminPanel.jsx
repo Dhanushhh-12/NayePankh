@@ -13,7 +13,6 @@ export default function AdminPanel() {
   const [passkey, setPasskey] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Mock Admin Data
   const monthlyData = [
     { name: 'Jan', donations: 0, volunteers: 0 },
     { name: 'Feb', donations: 0, volunteers: 0 },
@@ -43,7 +42,7 @@ export default function AdminPanel() {
     <section id="admin" className="py-24 bg-[#f7fafc] dark:bg-slate-900/10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#dd6b20] font-extrabold text-sm uppercase tracking-widest mb-3 block">MANAGEMENT CORE</span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#1a365d] dark:text-white mb-6 tracking-tight">NGO Admin Panel Dashboard</h2>
@@ -85,7 +84,7 @@ export default function AdminPanel() {
           /* Unlocked Admin Panel */
           <div className="space-y-8 animate-fade-in">
             
-            {/* Control Header */}
+            
             <div className="flex justify-between items-center bg-[#1a365d] text-white p-6 rounded-2xl shadow-sm">
               <div className="flex items-center space-x-3">
                 <Unlock className="w-5 h-5 text-[#dd6b20]" />
@@ -103,10 +102,10 @@ export default function AdminPanel() {
               </button>
             </div>
 
-            {/* Widgets Grid */}
+            
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               
-              {/* Widget 1 */}
+              
               <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 p-6 rounded-2xl">
                 <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Total Donations</span>
                 <div className="text-2xl font-black text-[#1a365d] dark:text-white mt-1">₹0</div>
@@ -116,7 +115,7 @@ export default function AdminPanel() {
                 </div>
               </div>
 
-              {/* Widget 2 */}
+              
               <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 p-6 rounded-2xl">
                 <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Active Volunteers</span>
                 <div className="text-2xl font-black text-[#1a365d] dark:text-white mt-1">0 Students</div>
@@ -126,14 +125,14 @@ export default function AdminPanel() {
                 </div>
               </div>
 
-              {/* Widget 3 */}
+              
               <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 p-6 rounded-2xl">
                 <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Exemption Invoices</span>
                 <div className="text-2xl font-black text-[#1a365d] dark:text-white mt-1">0 receipts</div>
                 <div className="text-[10px] text-slate-400 font-bold mt-1.5">100% Tax Compliant</div>
               </div>
 
-              {/* Widget 4 */}
+              
               <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 p-6 rounded-2xl">
                 <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Total Meals Dispatched</span>
                 <div className="text-2xl font-black text-[#1a365d] dark:text-white mt-1">0</div>
@@ -142,10 +141,10 @@ export default function AdminPanel() {
 
             </div>
 
-            {/* Charts Grid */}
+            
             <div className="grid lg:grid-cols-2 gap-8">
               
-              {/* Chart 1: Line chart for Donations */}
+              
               <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
                 <h3 className="text-sm font-bold text-[#1a365d] dark:text-white mb-4">Monthly Donation Growth (INR)</h3>
                 <div className="h-64">
@@ -161,7 +160,7 @@ export default function AdminPanel() {
                 </div>
               </div>
 
-              {/* Chart 2: Bar chart for Volunteers */}
+              
               <div className="bg-white dark:bg-slate-900 border border-[#e2e8f0] dark:border-slate-800 p-6 rounded-3xl shadow-sm">
                 <h3 className="text-sm font-bold text-[#1a365d] dark:text-white mb-4">Monthly Volunteer Chapters Expansion</h3>
                 <div className="h-64">
@@ -179,7 +178,7 @@ export default function AdminPanel() {
 
             </div>
 
-            {/* Volunteer Approvals Table */}
+            
             <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm">
               <div className="p-6 border-b border-slate-100 dark:border-slate-850">
                 <h3 className="text-sm font-bold text-[#1a365d] dark:text-white">Pending Volunteer Registrations</h3>

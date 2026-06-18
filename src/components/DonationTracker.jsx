@@ -49,7 +49,7 @@ export default function DonationTracker({ onDonateClick }) {
     <section id="campaigns" className="py-24 bg-slate-50 dark:bg-slate-900/30 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#dd6b20] font-extrabold text-sm uppercase tracking-widest mb-3 block">URGENT NEEDS</span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#1a365d] dark:text-white mb-6 tracking-tight">Active Donation Campaigns</h2>
@@ -58,7 +58,7 @@ export default function DonationTracker({ onDonateClick }) {
           </p>
         </div>
 
-        {/* Campaigns Grid */}
+        
         <div className="grid md:grid-cols-3 gap-8">
           {campaigns.map((camp) => {
             const percent = Math.round((camp.raised / camp.target) * 100);
@@ -75,7 +75,7 @@ export default function DonationTracker({ onDonateClick }) {
                 style={{ transformStyle: 'preserve-3d', perspective: 1000 }}
                 className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between transition-all duration-300"
               >
-                {/* Header */}
+                
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <div className="p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl">
@@ -93,14 +93,14 @@ export default function DonationTracker({ onDonateClick }) {
                     {camp.desc}
                   </p>
 
-                  {/* Raise Progress metrics */}
+                  
                   <div className="space-y-3">
                     <div className="flex justify-between text-xs font-bold">
                       <span className="text-slate-400">Raised: ₹{camp.raised.toLocaleString()}</span>
                       <span className="text-[#1a365d] dark:text-blue-400">{percent}% of ₹{camp.target.toLocaleString()} Goal</span>
                     </div>
                     
-                    {/* Animated Progress Bar */}
+                    
                     <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
                       <motion.div 
                         initial={{ width: 0 }}
@@ -113,10 +113,10 @@ export default function DonationTracker({ onDonateClick }) {
                   </div>
                 </div>
 
-                {/* Footer Metrics */}
+                
                 <div className="px-6 py-4.5 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                   
-                  {/* Left stats */}
+                  
                   <div className="flex items-center space-x-4 text-slate-500 dark:text-slate-400 font-medium">
                     <div className="flex items-center space-x-1">
                       <Users className="w-4 h-4 text-slate-400" />
@@ -128,7 +128,7 @@ export default function DonationTracker({ onDonateClick }) {
                     </div>
                   </div>
 
-                  {/* Right Action */}
+                  
                   <button
                     onClick={() => onDonateClick(camp.name)}
                     className="px-4 py-2 bg-[#dd6b20] hover:bg-[#c05621] text-white text-xs font-black uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center space-x-1"
