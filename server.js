@@ -10,11 +10,10 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Ensure Database Directories and Files Exist
+
 const DATA_DIR = path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -27,7 +26,7 @@ const initializeDatabaseFile = (filename, defaultContent) => {
   }
 };
 
-// Seed initial video lessons list
+
 const initialLessons = [
   {
     id: 1,
@@ -63,12 +62,11 @@ const initialLessons = [
   }
 ];
 
-// Initialize JSON Database Files
+
 initializeDatabaseFile('lessons.json', initialLessons);
 initializeDatabaseFile('donations.json', []);
 initializeDatabaseFile('volunteers.json', []);
 
-// Helpers to read/write JSON databases
 const readDatabase = (filename) => {
   const filePath = path.join(DATA_DIR, filename);
   try {
@@ -91,11 +89,6 @@ const writeDatabase = (filename, content) => {
   }
 };
 
-// ==========================================
-// API ENDPOINTS
-// ==========================================
-
-// 1. Lessons Endpoints
 app.get('/api/lessons', (req, res) => {
   const lessons = readDatabase('lessons.json');
   res.json(lessons);
@@ -117,12 +110,12 @@ app.post('/api/lessons', (req, res) => {
     videoURL
   };
 
-  lessons.unshift(newLesson); // add to top
+  lessons.unshift(newLesson);
   writeDatabase('lessons.json', lessons);
   res.status(201).json(newLesson);
 });
 
-// 2. Volunteer Onboarding Endpoints
+
 app.get('/api/volunteers', (req, res) => {
   const volunteers = readDatabase('volunteers.json');
   res.json(volunteers);
@@ -152,7 +145,7 @@ app.post('/api/volunteers', (req, res) => {
   res.status(201).json(newVolunteer);
 });
 
-// 3. Donation Log Endpoints (Transparency Ledger)
+
 app.get('/api/donations', (req, res) => {
   const donations = readDatabase('donations.json');
   res.json(donations);
@@ -183,12 +176,12 @@ app.post('/api/donations', (req, res) => {
     timestamp: new Date().toISOString()
   };
 
-  donations.unshift(newDonation); // Add to top
+  donations.unshift(newDonation);
   writeDatabase('donations.json', donations);
   res.status(201).json(newDonation);
 });
 
-// Health check endpoint
+
 app.get('/api/health', (req, res) => {
   res.json({ status: "healthy", timestamp: new Date().toISOString() });
 });
